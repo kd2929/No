@@ -36,21 +36,14 @@ async def restart_handler(_, m):
     await m.reply_text("**STOPPED**🛑🛑", True)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-@bot.on_message(filters.command(["link"]))
-async def upload(bot: Client, m: Message):
-    editable = await m.reply_text('Send link in **Name&link** format to download the url')
-    input9: Message = await bot.listen(editable.chat.id)
-    raw = input9.text
-    name = raw.split('&')[0]
-    url = raw.split('&')[1] or raw
-    await m.reply_text("**Enter resolution**")
-    input2: Message = await bot.listen(editable.chat.id)
-    raw_text2 = input2.text
-    
-    Show = f"**Downloading:-**\n\n**Name :-** ```{name}\nQuality - {raw_text2}```\n\n**Url :-** ```{url}```"
-    prog = await m.reply_text(Show)
-    
-    cc = f'>> **Name :** {name}'
+bot.on_message(filters.command(["txt"]))
+async def account_login(bot: Client, m: Message):
+    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
+    input: Message = await bot.listen(editable.chat.id)
+    if input.document:
+        x = await input.download()
+        file_name, ext = os.path.splitext(os.path.basename(x))
+        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
     
     path = f"./downloads/{m.chat.id}"
 
