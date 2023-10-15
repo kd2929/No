@@ -38,13 +38,13 @@ async def restart_handler(_, m):
 
 bot.on_message(filters.command(["txt"]))
 async def upload(bot: Client, m: Message):
-editable = await m.reply_text('Send link in **send TXT file** format to download the url')
+editable = await m.reply_text('Send link in **txt&file** format to download the url')
+
 input: Message = await bot.listen(editable.chat.id)
 if input.document:
         x = await input.download()
         file_name, ext = os.path.splitext(os.path.basename(x))
       
-
         path = f"./downloads/{m.chat.id}"
 
     if "youtu" in url:
