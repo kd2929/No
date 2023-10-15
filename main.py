@@ -23,33 +23,29 @@ import re
 import os
 
 bot = Client("bot",
-             bot_token= "6286056110:AAHvTTaBxAMikfamkeFs8TlBjNNxnK8AoEg",
-             api_id= 10577960,
-             api_hash= "80fd047285f4e94ca80311928b6bb5da")
+             bot_token= "5900432090:AAGh66GjvNR0fnGCiOngV4rC5tg5pninmlU",
+             api_id= 24250238,
+             api_hash= "cb3f118ce5553dc140127647edcf3720")
 
 
-@bot.on_message(filters.command(["start"]) & filters.user(ADMINS))
+@bot.on_message(filters.command(["start"]))
 async def account_login(bot: Client, m: Message):
-    editable = await m.reply_text(f"Hello [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nPress /invix")
+    editable = await m.reply_text(f"Hello I am a URL DOWNLOADER BOT \nPress /link")
 
 
-@bot.on_message(filters.command("stop") & filters.user(ADMINS))
+@bot.on_message(filters.command("noob"))
 async def restart_handler(_, m):
     await m.reply_text("**STOPPED**🛑🛑", True)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
+bot.on_message(filters.command(["txt"]))
+async def upload(bot: Client, m: Message):
+editable = await m.reply_text('Send link in **txt&file** format to download the url')
 
-@bot.on_message(filters.command(["invix"]) & filters.user(ADMINS))
-async def account_login(bot: Client, m: Message):
-    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
-    input: Message = await bot.listen(editable.chat.id)
-    if input.document:
+input: Message = await bot.listen(editable.chat.id)
+if input.document:
         x = await input.download()
-        await bot.send_document(-1001981770797, x)
-        await input.delete(True)
         file_name, ext = os.path.splitext(os.path.basename(x))
-        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
-
 
         path = f"./downloads/{m.chat.id}"
 
