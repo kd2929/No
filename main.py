@@ -171,7 +171,7 @@ async def account_login(bot: Client, m: Message):
                 cc1 = f'** {str(count).zfill(3)}.** {name1} lord.pdf \n**Batch Name :**{b_name}\n\n**Downloaded by : {CR}**'
                 if "drive" in url:
                     try:
-                        ka = await helper.download(url, name
+                        ka = await helper.download(url, name)
                         os.remove(ka)
                         time.sleep(1)
                     except FloodWait as e:
