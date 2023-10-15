@@ -171,9 +171,7 @@ async def account_login(bot: Client, m: Message):
                 cc1 = f'** {str(count).zfill(3)}.** {name1} lord.pdf \n**Batch Name :**{b_name}\n\n**Downloaded by : {CR}**'
                 if "drive" in url:
                     try:
-                        ka = await helper.download(url, name)
-                        copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1,
-                        count+=1
+                        ka = await helper.download(url, name
                         os.remove(ka)
                         time.sleep(1)
                     except FloodWait as e:
@@ -185,8 +183,6 @@ async def account_login(bot: Client, m: Message):
                         cmd = f'yt-dlp -o "{name}.pdf" "{url}"'
                         download_cmd = f"{cmd} -R 25 --fragment-retries 25"
                         os.system(download_cmd)
-                        copy = await bot.send_document(chat_id=m.chat.id,document=f'{name}.pdf', caption=cc1,  
-                        count += 1
                         os.remove(f'{name}.pdf')
                     except FloodWait as e:
                         await m.reply_text(str(e))
