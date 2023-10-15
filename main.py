@@ -43,7 +43,7 @@ input: Message = await bot.listen(editable.chat.id)
 if input.document:
         x = await input.download()
         file_name, ext = os.path.splitext(os.path.basename(x))
-        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
+        credit =
 
         path = f"./downloads/{m.chat.id}"
 
