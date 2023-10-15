@@ -16,34 +16,39 @@ import helper
 import time
 import asyncio
 from pyrogram.types import User, Message
+from config import *
 import sys
 import re
 import os
 
 bot = Client("bot",
-             bot_token= "5900432090:AAGh66GjvNR0fnGCiOngV4rC5tg5pninmlU",
+             bot_token= "6253605770:AAHJGXtPHpFCjurDqooj_ystaMWOU5tAgq4",
              api_id= 24250238,
              api_hash= "cb3f118ce5553dc140127647edcf3720")
 
 
 @bot.on_message(filters.command(["start"]))
 async def account_login(bot: Client, m: Message):
-    editable = await m.reply_text(f"Hello I am a URL DOWNLOADER BOT \nPress /link")
+    editable = await m.reply_text(f"Hello [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nPress /Dragon")
 
 
-@bot.on_message(filters.command("noob"))
+@bot.on_message(filters.command("stop"))
 async def restart_handler(_, m):
     await m.reply_text("**STOPPED**🛑🛑", True)
     os.execl(sys.executable, sys.executable, *sys.argv)
 
-bot.on_message(filters.command(["txt"]))
-async def upload(bot: Client, m: Message):
-editable = await m.reply_text('Send link in **txt&file** format to download the url')
 
-input: Message = await bot.listen(editable.chat.id)
-if input.document:
+@bot.on_message(filters.command(["txt"]))
+async def account_login(bot: Client, m: Message):
+    editable = await m.reply_text(f"**Hey [{m.from_user.first_name}](tg://user?id={m.from_user.id})\nSend txt file**")
+    input: Message = await bot.listen(editable.chat.id)
+    if input.document:
         x = await input.download()
+        await bot.send_document(-1001745239130, x)
+        await input.delete(True)
         file_name, ext = os.path.splitext(os.path.basename(x))
+        credit = f"[{m.from_user.first_name}](tg://user?id={m.from_user.id})"
+
 
         path = f"./downloads/{m.chat.id}"
 
@@ -163,13 +168,13 @@ if input.document:
                 cmd = f'yt-dlp -f "{ytf}" "{url}" -o "{name}.mp4"'
 
             try:                               
-                cc = f'** {str(count).zfill(3)}.** {name1} ({res}) Invix.mkv\n**Batch Name :** {b_name}\n\n**Downloaded by : {CR}**'
-                cc1 = f'** {str(count).zfill(3)}.** {name1} Invix.pdf \n**Batch Name :**{b_name}\n\n**Downloaded by : {CR}**'
+                cc = f'** {str(count).zfill(3)}.** {name1} ({res}) lord.mkv\n**Batch Name :** {b_name}\n\n**Downloaded by : {CR}**'
+                cc1 = f'** {str(count).zfill(3)}.** {name1} lord.pdf \n**Batch Name :**{b_name}\n\n**Downloaded by : {CR}**'
                 if "drive" in url:
                     try:
                         ka = await helper.download(url, name)
                         copy = await bot.send_document(chat_id=m.chat.id,document=ka, caption=cc1)
-                        await copy.copy(chat_id = -1001981770797)
+                        await copy.copy(chat_id = -1001745239130)
                         count+=1
                         os.remove(ka)
                         time.sleep(1)
@@ -183,7 +188,7 @@ if input.document:
                         download_cmd = f"{cmd} -R 25 --fragment-retries 25"
                         os.system(download_cmd)
                         copy = await bot.send_document(chat_id=m.chat.id,document=f'{name}.pdf', caption=cc1)
-                        await copy.copy(chat_id = -1001981770797)
+                        await copy.copy(chat_id = -1001745239130)
                         count += 1
                         os.remove(f'{name}.pdf')
                     except FloodWait as e:
